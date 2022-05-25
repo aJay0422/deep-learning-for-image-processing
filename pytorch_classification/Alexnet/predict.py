@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import torch
 import json
 
-data_transform = transfomrs.Compose(
+data_transform = transforms.Compose(
     [transforms.Resize((224, 224)),
      transforms.ToTensor(),
      transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]
@@ -38,5 +38,5 @@ with torch.no_grad():
     output = torch.squeeze(model(img))
     predict = torch.softmax(output, dim=0)
     predict_cla = torch.argmax(predict).numpy()
-print(class_indict[str(predict_cla)], predict[predict_cls].item())
+print(class_indict[str(predict_cla)], predict[predict_cla].item())
 plt.show()
