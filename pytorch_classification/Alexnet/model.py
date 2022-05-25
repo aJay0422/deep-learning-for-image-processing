@@ -5,7 +5,7 @@ class AlexNet(nn.Module):
     def __init__(self, num_classes=1000, init_weights=False):
         super(AlexNet, self).__init__()
         self.features = nn.Sequential(
-            nn.Conv2d(3, 46, kernel_size=11, stride=4, padding=2),
+            nn.Conv2d(3, 48, kernel_size=11, stride=4, padding=2),
             nn.ReLU(inplace=True),
             nn.MaxPool2d(kernel_size=3, stride=2),
             nn.Conv2d(48, 128, kernel_size=4, padding=2),
@@ -31,9 +31,9 @@ class AlexNet(nn.Module):
         if init_weights:
             self._initialize_weights()
 
-    def forward(self):
+    def forward(self, x):
         x = self.features(x)
-        x = torch.faltten(x, start_dim=1)
+        x = torch.flatten(x, start_dim=1)
         x = self.classifier(x)
         return x
 
