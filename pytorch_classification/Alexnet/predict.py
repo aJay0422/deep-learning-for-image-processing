@@ -12,7 +12,7 @@ data_transform = transforms.Compose(
 )
 
 #load image
-img = Image.open("../tulip.jpg")
+img = Image.open("../tulip.jpeg")
 plt.imshow(img)
 #[N, C, H, W]
 img = data_transform(img)
@@ -29,7 +29,7 @@ except Exception as e:
 
 # create model
 model = AlexNet(num_classes=5)
-# load moel weights
+# load model weights
 model_weight_path = "./AlexNet.pth"
 model.load_state_dict(torch.load(model_weight_path))
 model.eval()
