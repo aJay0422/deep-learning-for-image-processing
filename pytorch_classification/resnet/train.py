@@ -8,7 +8,7 @@ import torch.optim as optim
 from torchvision import transforms, datasets
 from tqdm import tqdm
 
-from model import resnet34, BasicBlock
+from model import resnext50_32x4d
 
 
 def main():
@@ -58,10 +58,12 @@ def main():
     print("using {} images for training, {} images for validation.".format(train_num,
                                                                            val_num))
 
-    net = resnet34()
+    net = resnext50_32x4d()
     # load pretrain weights
-    model_weight_path = "./resnet34-pre.pth"
+    model_weight_path = "./resnext50_32x4d.pth"
     missing_keys, unexpected_keys = net.load_state_dict(torch.load(model_weight_path), strict=False)
+    for param in net.parameters():
+        param.requires_grad = False
 
     # change fc layer structure
     inchannel = net.fc.in_features
@@ -72,9 +74,9 @@ def main():
     params = [p for p in net.parameters() if p.requires_grad]
     optimizer = optim.Adam(params, lr=0.0001)
 
-    epochs = 3
+    epochs = 1
     best_acc = 0.0
-    save_path = './resNet34.pth'
+    save_path = './resNext50.pth'
     train_steps = len(train_loader)
     for epoch in range(epochs):
         # train
