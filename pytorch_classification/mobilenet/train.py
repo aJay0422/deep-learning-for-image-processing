@@ -9,6 +9,7 @@ from torchvision import transforms, datasets
 from tqdm import tqdm
 
 from model_v2 import MobileNetV2
+from model_v3 import MobileNetV3
 
 
 def main():
