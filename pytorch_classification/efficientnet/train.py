@@ -96,6 +96,7 @@ def main(args):
     lf = lambda x: ((1 + math.cos(x * math.pi / args.epochs)) / 2) * (1 - args.lrf) + args.lrf  # cosine
     scheduler = lr_scheduler.LambdaLR(optimizer, lr_lambda=lf)
 
+    best_acc = 0.0
     for epoch in range(args.epochs):
         # train
         mean_loss = train_one_epoch(model=model,
@@ -107,7 +108,6 @@ def main(args):
         scheduler.step()
 
         # validate
-        best_acc = 0.0
         acc = evaluate(model=model,
                        data_loader=val_loader,
                        device=device)
